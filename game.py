@@ -1,6 +1,5 @@
 def import_map(filename):
     imported_list = []
-    flatted_list = []
 
     for item in open(filename):
         item = item.strip('\n')
@@ -10,8 +9,10 @@ def import_map(filename):
         print(''.join(n))
 
 
+
 def main():
 
     import_map('game_board.txt')
+
 
 main()
