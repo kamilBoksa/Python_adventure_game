@@ -1,3 +1,6 @@
+import os
+
+
 def getkey():
     import sys, tty, termios
     fd = sys.stdin.fileno()
@@ -23,6 +26,7 @@ def import_map(filename, imported_list):
 
 
 def print_map(imported_list):
+    os.system('clear')
     for n in imported_list:
         print(''.join(n))
 
@@ -39,13 +43,27 @@ def show_title(filename):
 
 
 def insert_player_to_game_map(player, imported_list):
-    position_column = 1
-    position_row = 1
-    imported_list[position_column][position_row] = player
-
+    position_x = 1
+    position_y = 1
+    imported_list[position_y][position_x] = player
+    print_map(imported_list)
 
 def move_player(player, imported_list):
-    pass
+    position_x = 1
+    position_y = 1
+    key = getkey()
+
+    if getkey == 's':
+        imported_list[position_y][position_x] = '.'
+        position_y += 1
+        imported_list[position_y][position_x] = player
+        print_map(imported_list)
+    elif getkey == 'd':
+    imported_list[position_y][position_x] = '.'
+    position_x += 1
+    imported_list[position_y][position_x] = player
+    print_map(imported_list)
+
 
 
 def main():
@@ -54,7 +72,6 @@ def main():
     show_title('game_title.txt')
     import_map('game_board.txt', imported_list)
     insert_player_to_game_map(player, imported_list)
-    print_map(imported_list)
-
+    move_player(player, imported_list)
 
 main()
