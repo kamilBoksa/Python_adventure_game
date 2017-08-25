@@ -1,10 +1,11 @@
 import os
 from time import sleep
 import sys
+import tty
+import termios
 
 
-def getkey():
-    import sys, tty, termios
+def getch():
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -12,8 +13,7 @@ def getkey():
         ch = sys.stdin.read(1)
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    key = getkey()
-    return key
+    return ch
 
 
 def import_map(filename, imported_list):
@@ -63,12 +63,12 @@ def story_printer():
             "|                                                                    |",
             "======================================================================"]
 
-    for line in lines:      # for each line of text (or each message)
-        for c in line:          # for each character in each line
-            print(c, end='')    # print a single character, and keep the cursor there.
-            sys.stdout.flush()  # flush the buffer
-            sleep(0.02)          # wait a little to make the effect look good.
-        print('')               # line break (optional, could also be part of the message)
+    for line in lines:
+        for c in line:
+            print(c, end='')
+            sys.stdout.flush()
+            sleep(0.02)
+        print('')
 
 
 def insert_player_to_game_map(player, imported_list):
@@ -77,23 +77,31 @@ def insert_player_to_game_map(player, imported_list):
     imported_list[position_y][position_x] = player
     print_map(imported_list)
 
-"""
+
 def move_player(player, imported_list):
     position_x = 1
     position_y = 1
-    key = getkey()
+    next_x = 1
+    next_y = 1
 
-    if getkey == 's':
-        imported_list[position_y][position_x] = '.'
-        position_y += 1
-        imported_list[position_y][position_x] = player
+    move = True
+    while move:
+        control = getch()
+        if control == "a":
+            next_x = next_x - 1
+        elif control == "d":
+            next_x = next_x + 1
+        elif control == "w":
+            next_y = next_y - 1
+        elif control == "s":
+            next_y = next_y + 1
+
+        imported_list[position_y][position_x] = "."
+        imported_list[next_y][next_x] = "@"
+        position_y = next_y
+        position_x = next_x
         print_map(imported_list)
-    elif getkey == 'd':
-        imported_list[position_y][position_x] = '.'
-        position_x += 1
-        imported_list[position_y][position_x] = player
-        print_map(imported_list)
-"""
+        sleep(0.1)
 
 
 def main():
@@ -103,7 +111,7 @@ def main():
     story_printer()
     import_map('game_board.txt', imported_list)
     insert_player_to_game_map(player, imported_list)
-    #move_player(player, imported_list)
+    move_player(player, imported_list)
     print_map(imported_list)
 
 
