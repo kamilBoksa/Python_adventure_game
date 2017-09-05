@@ -1,5 +1,6 @@
 import os
 
+
 def create_hero():
     name = input("Tell me your name: ")
     os.system('clear')
