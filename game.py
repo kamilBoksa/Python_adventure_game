@@ -136,6 +136,40 @@ def create_hero():
     return name, streght, lifes, inteligence
 
 
+def display_credits():
+    credits = open("credits.txt").read()
+    print(credits)
+
+
+def win_display():
+    win_screen = open("win_screen.txt").read()
+    print(win_screen)
+    again = input("Do you want to play again? y or n")
+    if again == "y":
+        print("ok")
+    elif again == "n":
+        print("Goodbye")
+    else:
+        win_display()
+
+
+def loose_display():
+    loose_screen = open("loose_screen.txt").read()
+    print(loose_screen)
+    again = input("Do you want to play again? y or n")
+    if again == "y":
+        print("ok")#wywolanie maina??
+    elif again == "n":
+        print("Goodbye")
+    else:
+        win_display()
+
+
+def how_to_play():
+    how_to_play = open("how_to_play").read()
+    print(how_to_play)
+
+
 def main():
     imported_map_1 = []
     imported_map_2 = []
@@ -147,6 +181,7 @@ def main():
     next_x = 1
 
     story_printer()
+    how_to_play()
     name, streght, lifes, inteligence = create_hero()
 
     insert_player_to_game_board(player, imported_map_1)
