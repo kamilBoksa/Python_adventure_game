@@ -69,8 +69,8 @@ def check_collision(imported_list, next_x, next_y):
         return False
 
 
-def switch_board1_to_board2(imported_list, position_x, position_y):
-    if imported_list[position_y, position_x] == ">":
+def switch_board1_to_board2(imported_list, next_y, next_x):
+    if imported_list[next_y][next_x] == ">":
         return True
     else:
         return False
@@ -94,14 +94,16 @@ def move_player(player, imported_list, next_y, next_x):
         elif control == "x":
             exit()
 
+
         if check_collision(imported_list, next_x, next_y) is True:
+            if imported_list[next_y][next_x] == ">":
+                break
             imported_list[position_y][position_x] = "."
             imported_list[next_y][next_x] = "@"
             position_y = next_y
             position_x = next_x
             print_map(imported_list)
             sleep(0.1)
-
         else:
             print("You cant move there!")
             next_x = position_x
@@ -153,10 +155,9 @@ def main():
     move_player(player, imported_map_1, next_y, next_x)
     print_map(imported_map_1)
 
-    if switch_board1_to_board2(imported_map1, next_y, next_x):
-        insert_player_to_game_board(player. imported_map_2)
-        move_player(player, imported_map_2)
-        print_map(imported_map_2)
+    insert_player_to_game_board(player, imported_map_2)
+    move_player(player, imported_map_2, next_y, next_x)
+    print_map(imported_map_2)
 
 
 main()
