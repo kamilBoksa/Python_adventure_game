@@ -46,41 +46,15 @@ def show_title(filename):
 
 def story_printer():
 
-<<<<<<< HEAD
-    lines = ["======================================================================",
-            "|                                                                    |",
-            "|   You were born in a small village Miszkolc as a farmer's son.      |",
-            "|Your life was running smoothly from day to day until that happened! |",
-            "|                                                                    |",
-            "|   In the evening, coming back from hunting, you saw the smoke      |",
-            "|rising in the distance over your village.                           |",
-            "|On the spot you found your family and other people murdered.        |",
-            "|                                                                    |",
-            "|Among the fallen you recognized the bandits from the north.         |",
-            "|Bloody Zorka is their leader.                                       |",
-            "|                                                                    |",
-            "|   You swore revenge, now you need to be prepared to face the       |",
-            "|bandits and their boss. Get ready for the adventure!                |",
-            "|                                                                    |",
-            "======================================================================"]
-
-    for line in lines:
-        for c in line:
-            print(c, end='')
-            sys.stdout.flush()
-            sleep(0.02)
-        print('')
-=======
     lines = open("historia.txt").readlines()
     for c in lines:
         print(c, end='')
         sys.stdout.flush()
         sleep(0.2)
     print('')
->>>>>>> 1f4c30261b69e1c8660e188ad140247ddb1ff490
 
 
-def insert_player_to_game_map(player, imported_list):
+def insert_player_to_game_board(player, imported_list):
     position_x = 1
     position_y = 1
     imported_list[position_y][position_x] = player
@@ -89,10 +63,16 @@ def insert_player_to_game_map(player, imported_list):
 
 def check_collision(imported_list, next_x, next_y):
 
-    if imported_list[next_y][next_x] == ".":
+    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">":
         return True
     else:
         return False
+
+
+def switch_board1_to_board2(filename,imported_list, next_x, next_y, player):
+    pass
+
+
 
 
 def move_player(player, imported_list):
@@ -122,6 +102,7 @@ def move_player(player, imported_list):
             position_x = next_x
             print_map(imported_list)
             sleep(0.1)
+
         else:
             print("You cant move there!")
             next_x = position_x
@@ -130,10 +111,11 @@ def move_player(player, imported_list):
 
 def create_hero():
     name = input("Tell me your name: ")
+    os.system('clear')
     print("You have 3 paths to choose", name)
     classes =open("classes.txt").read()
     print(classes)
-    choice = input ("If you like to be mage press m, for archer a and for warrrio w")
+    choice = input ("If you like to be mage press m, for archer a and for warrrior")
     if choice == "m":
         print('You are a mage')
         streght = 3
@@ -148,7 +130,7 @@ def create_hero():
         print("You are a warrior")
         streght = 7
         lifes = 8
-        inteligence = 5  
+        inteligence = 5
     else:
         create_hero()
 
@@ -156,20 +138,25 @@ def create_hero():
 
 
 def main():
-    imported_list = []
+    imported_map_1 = []
+    imported_map_2 = []
     player = '@'
     show_title('game_title.txt')
-<<<<<<< HEAD
-    #story_printer()
-=======
-    name, streght, lifes, inteligence = create_hero()
-    print(streght)
+    import_map('game_board.txt', imported_map_1)
+    import_map('game_board2.txt', imported_map_2)
+
     story_printer()
->>>>>>> 1f4c30261b69e1c8660e188ad140247ddb1ff490
-    import_map('game_board.txt', imported_list)
-    insert_player_to_game_map(player, imported_list)
-    move_player(player, imported_list)
-    print_map(imported_list)
+    name, streght, lifes, inteligence = create_hero()
+
+    insert_player_to_game_board(player, imported_map_1)
+    move_player(player, imported_map_1)
+    print_map(imported_map_1)
+
+    #if change map to 2:
+    #insert_player_to_game_board(player. imported_map_2)
+    #move_player(player, imported_map_2)
+    #print_map(imported_map_2)
+
 
 
 main()
