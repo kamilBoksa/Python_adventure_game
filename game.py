@@ -69,17 +69,16 @@ def check_collision(imported_list, next_x, next_y):
         return False
 
 
-def switch_board1_to_board2(filename,imported_list, next_x, next_y, player):
-    pass
+def switch_board1_to_board2(imported_list, position_x, position_y):
+    if imported_list[position_y, position_x] == ">":
+        return True
+    else:
+        return False
 
 
-
-
-def move_player(player, imported_list):
-    position_x = 1
+def move_player(player, imported_list, next_y, next_x):
     position_y = 1
-    next_x = 1
-    next_y = 1
+    position_x = 1
 
     move = True
     while move:
@@ -113,9 +112,9 @@ def create_hero():
     name = input("Tell me your name: ")
     os.system('clear')
     print("You have 3 paths to choose", name)
-    classes =open("classes.txt").read()
+    classes = open("classes.txt").read()
     print(classes)
-    choice = input ("If you like to be mage press m, for archer a and for warrrior")
+    choice = input("If you like to be mage press m, for archer a and for warrrior")
     if choice == "m":
         print('You are a mage')
         streght = 3
@@ -144,19 +143,20 @@ def main():
     show_title('game_title.txt')
     import_map('game_board.txt', imported_map_1)
     import_map('game_board2.txt', imported_map_2)
+    next_y = 1
+    next_x = 1
 
     story_printer()
     name, streght, lifes, inteligence = create_hero()
 
     insert_player_to_game_board(player, imported_map_1)
-    move_player(player, imported_map_1)
+    move_player(player, imported_map_1, next_y, next_x)
     print_map(imported_map_1)
 
-    #if change map to 2:
-    #insert_player_to_game_board(player. imported_map_2)
-    #move_player(player, imported_map_2)
-    #print_map(imported_map_2)
-
+    if switch_board1_to_board2(imported_map1, next_y, next_x):
+        insert_player_to_game_board(player. imported_map_2)
+        move_player(player, imported_map_2)
+        print_map(imported_map_2)
 
 
 main()
