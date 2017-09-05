@@ -46,29 +46,12 @@ def show_title(filename):
 
 def story_printer():
 
-    lines = ["======================================================================",
-            "|                                                                    |",
-            "|   You were born in a small village Miskolc as a farmer's son.      |",
-            "|Your life was running smoothly from day to day until that happened! |",
-            "|                                                                    |",
-            "|   In the evening, coming back from hunting, you saw the smoke      |",
-            "|rising in the distance over your village.                           |",
-            "|On the spot you found your family and other people murdered.        |",
-            "|                                                                    |",
-            "|Among the fallen you recognized the bandits from the north.         |",
-            "|Bloody Zorka is their leader.                                       |",
-            "|                                                                    |",
-            "|   You swore revenge, now you need to be prepared to face the       |",
-            "|bandits and their boss. Get ready for the adventure!                |",
-            "|                                                                    |",
-            "======================================================================"]
-
-    for line in lines:
-        for c in line:
-            print(c, end='')
-            sys.stdout.flush()
-            sleep(0.02)
-        print('')
+    lines = open("historia.txt").readlines()
+    for c in lines:
+        print(c, end='')
+        sys.stdout.flush()
+        sleep(0.2)
+    print('')
 
 
 def insert_player_to_game_map(player, imported_list):
@@ -104,10 +87,39 @@ def move_player(player, imported_list):
         sleep(0.1)
 
 
+def create_hero():
+    name = input("Tell me your name: ")
+    print("You have 3 paths to choose", name)
+    classes =open("classes.txt").read()
+    print(classes)
+    choice = input ("If you like to be mage press m, for archer a and for warrrio w")
+    if choice == "m":
+        print('You are a mage')
+        streght = 3
+        lifes = 5
+        inteligence = 10
+    elif choice == "a":
+        print("You are an archer")
+        streght = 5
+        lifes = 10
+        inteligence = 7
+    elif choice == "w":
+        print("You are a warrior")
+        streght = 7
+        lifes = 8
+        inteligence = 5  
+    else:
+        create_hero()
+
+    return name, streght, lifes, inteligence
+
+
 def main():
     imported_list = []
     player = '@'
     show_title('game_title.txt')
+    name, streght, lifes, inteligence = create_hero()
+    print(streght)
     story_printer()
     import_map('game_board.txt', imported_list)
     insert_player_to_game_map(player, imported_list)
