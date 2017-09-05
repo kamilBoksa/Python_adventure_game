@@ -3,6 +3,7 @@ from time import sleep
 import sys
 import tty
 import termios
+import hero_creator
 
 
 def getch():
@@ -19,34 +20,34 @@ def getch():
 def import_map(filename, imported_list):
 
     with open(filename) as board:
-        for item in board:
-            item = item.strip('\n')
-            item = list(item)
-            imported_list.append(item)
+        for element in board:
+            element = element.strip('\n')
+            element = list(element)
+            imported_list.append(element)
 
     return imported_list
 
 
 def print_map(imported_list):
     os.system('clear')
-    for n in imported_list:
-        print(''.join(n))
+    for element in imported_list:
+        print(''.join(element))
 
 
 def show_title(filename):
     title = []
 
-    for item in open(filename):
-        item = item.strip('\n')
-        title.append(item)
+    for line in open(filename):
+        line = line.strip('\n')
+        title.append(line)
 
-    for n in title:
-        print(''.join(n))
+    for line in title:
+        print(''.join(line))
 
 
 def story_printer():
 
-    lines = open("historia.txt").readlines()
+    lines = open("story.txt").readlines()
     for c in lines:
         print(c, end='')
         sys.stdout.flush()
@@ -94,10 +95,10 @@ def move_player(player, imported_list, next_y, next_x):
         elif control == "x":
             exit()
 
-
         if check_collision(imported_list, next_x, next_y) is True:
             if imported_list[next_y][next_x] == ">":
                 break
+
             imported_list[position_y][position_x] = "."
             imported_list[next_y][next_x] = "@"
             position_y = next_y
@@ -108,34 +109,6 @@ def move_player(player, imported_list, next_y, next_x):
             print("You cant move there!")
             next_x = position_x
             next_y = position_y
-
-
-def create_hero():
-    name = input("Tell me your name: ")
-    os.system('clear')
-    print("You have 3 paths to choose", name)
-    classes = open("classes.txt").read()
-    print(classes)
-    choice = input("If you like to be mage press m, for archer a and for warrrior")
-    if choice == "m":
-        print('You are a mage')
-        streght = 3
-        lifes = 5
-        inteligence = 10
-    elif choice == "a":
-        print("You are an archer")
-        streght = 5
-        lifes = 10
-        inteligence = 7
-    elif choice == "w":
-        print("You are a warrior")
-        streght = 7
-        lifes = 8
-        inteligence = 5
-    else:
-        create_hero()
-
-    return name, streght, lifes, inteligence
 
 
 def display_credits():
@@ -160,7 +133,7 @@ def loose_display():
     print(loose_screen)
     again = input("Do you want to play again? y or n")
     if again == "y":
-        print("ok")#wywolanie maina??
+        print("ok")  # wywolanie maina??
     elif again == "n":
         print("Goodbye")
     else:
@@ -168,11 +141,11 @@ def loose_display():
 
 
 def how_to_play():
-    how_to_play = open("how_to_play").read()
+    how_to_play = open("how_to_play.txt").read()
     print(how_to_play)
 
 
-def main():
+def game_core():
     imported_map_1 = []
     imported_map_2 = []
     player = '@'
@@ -184,7 +157,7 @@ def main():
 
     story_printer()
     how_to_play()
-    name, streght, lifes, inteligence = create_hero()
+    hero_creator.create_hero()
 
     insert_player_to_game_board(player, imported_map_1)
     move_player(player, imported_map_1, next_y, next_x)
@@ -195,4 +168,9 @@ def main():
     print_map(imported_map_2)
 
 
-main()
+def main():
+    game_core()
+
+
+if __name__ == '__main__':
+    main()
