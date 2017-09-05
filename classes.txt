@@ -1,0 +1,5 @@
+                MAGE               WARRIOR          ARCHER
+
+Stength           3                   7                 5
+Lifes             5                   8                10
+Inteligence      10                   5                 7
