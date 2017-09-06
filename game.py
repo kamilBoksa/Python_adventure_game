@@ -78,7 +78,7 @@ def switch_board1_to_board2(imported_list, next_y, next_x):
         return False
 
 
-def move_player(player, imported_list, next_y, next_x):
+def move_player(player, imported_list, next_y, next_x, player_stats):
     position_y = 1
     position_x = 1
 
@@ -93,6 +93,8 @@ def move_player(player, imported_list, next_y, next_x):
             next_y = next_y - 1
         elif control == "s":
             next_y = next_y + 1
+        elif control == "q":
+            hero_creator.print_hero_statistics(player_stats)
         elif control == "x":
             exit()
 
@@ -163,10 +165,10 @@ def game_core():
 
     story_printer()
     how_to_play()
-    hero_creator.create_hero()
+    player_stats = hero_creator.create_hero()
 
     insert_player_to_game_board(player, imported_map_1)
-    move_player(player, imported_map_1, next_y, next_x)
+    move_player(player, imported_map_1, next_y, next_x, player_stats)
     print_map(imported_map_1)
 
     insert_player_to_game_board(player, imported_map_2)

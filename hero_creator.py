@@ -1,6 +1,5 @@
 import os
 
-
 def create_hero():
     name = input("Tell me your name: ")
     os.system('clear')
@@ -13,23 +12,36 @@ def create_hero():
         choice = input("If you like to be mage press M, for archer A and for warrrior W: ")
         if choice == "M":
             print("You are a mage!")
-            streght = 3
-            lifes = 5
+            strenght = 3
             inteligence = 10
+            lifes = 5
+            agility = 2
             break
         elif choice == "A":
             print("You are an archer!")
-            streght = 5
-            lifes = 10
-            inteligence = 7
+            strenght = 3
+            lifes = 7
+            inteligence = 2
+            agility = 10
             break
         elif choice == "W":
             print("You are a warrior!")
-            streght = 7
+            strenght = 8
             lifes = 8
-            inteligence = 5
+            inteligence = 2
+            agility = 5
             break
         else:
             print("Wrong input! Please enter: M, A or W")
 
-    return name, streght, lifes, inteligence
+    return name, strenght, lifes, inteligence, agility
+
+def save_hero_statistics():
+    pass
+
+def print_hero_statistics(stats):
+    print("Name: %s" % stats[0])
+    print("Strenght: %s" % stats[1])
+    print("Intelligence: %s" % stats[2])
+    print("Agility: %s" % stats[3])
+    print("Lifes: %s" % stats[4])
