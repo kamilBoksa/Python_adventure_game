@@ -4,6 +4,7 @@ import sys
 import tty
 import termios
 import hero_creator
+import hero_inventory
 
 
 def getch():
@@ -65,7 +66,7 @@ def insert_player_to_game_board(player, imported_list):
 
 def check_collision(imported_list, next_x, next_y):
 
-    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">":
+    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">" or imported_list[next_y][next_x] == "$":
         return True
     else:
         return False
@@ -78,7 +79,7 @@ def switch_board1_to_board2(imported_list, next_y, next_x):
         return False
 
 
-def move_player(player, imported_list, next_y, next_x, player_stats):
+def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
     position_y = 1
     position_x = 1
 
@@ -95,12 +96,16 @@ def move_player(player, imported_list, next_y, next_x, player_stats):
             next_y = next_y + 1
         elif control == "q":
             hero_creator.print_hero_statistics(player_stats)
+        elif control == "i":
+            hero_inventory.print_table(inventory)
         elif control == "x":
             exit()
 
         if check_collision(imported_list, next_x, next_y) is True:
             if imported_list[next_y][next_x] == ">":
                 break
+            elif imported_list[next_y][next_x] == "$":
+                hero_inventory.add_to_inventory('gold coin', inventory)
 
             imported_list[position_y][position_x] = "."
             imported_list[next_y][next_x] = "@"
@@ -108,7 +113,7 @@ def move_player(player, imported_list, next_y, next_x, player_stats):
             position_x = next_x
             print_map(imported_list)
             sleep(0.1)
-        else:
+        elif check_collision(imported_list, next_x, next_y) is False:
             print("You cant move there!")
             next_x = position_x
             next_y = position_y
@@ -162,17 +167,18 @@ def game_core():
     import_map('game_board2.txt', imported_map_2)
     next_y = 1
     next_x = 1
+    inventory = {}
 
     story_printer()
     how_to_play()
     player_stats = hero_creator.create_hero()
 
     insert_player_to_game_board(player, imported_map_1)
-    move_player(player, imported_map_1, next_y, next_x, player_stats)
+    move_player(player, imported_map_1, next_y, next_x, player_stats, inventory)
     print_map(imported_map_1)
 
     insert_player_to_game_board(player, imported_map_2)
-    move_player(player, imported_map_2, next_y, next_x)
+    move_player(player, imported_map_2, next_y, next_x, player_stats, inventory)
     print_map(imported_map_2)
 
 

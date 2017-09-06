@@ -39,8 +39,11 @@ def create_hero():
 
 
 def print_hero_statistics(stats):
+    print("")
+    print("_____________________")
     print("Name: %s" % stats[0])
     print("Strenght: %s" % stats[1])
     print("Intelligence: %s" % stats[2])
     print("Agility: %s" % stats[3])
     print("Lifes: %s" % stats[4])
+    print("_____________________")
