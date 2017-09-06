@@ -23,7 +23,6 @@ def import_map(filename, imported_list):
 
     with open(filename) as board:
         for element in board:
-            element.replace("#","\033[90m#\33[0m")
             element = element.strip('\n')
             element = list(element)
             imported_list.append(element)
@@ -67,7 +66,7 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
-    interactive_symbols = ".>|$MA"
+    interactive_symbols = ".>|$MASB"
     if imported_list[next_y][next_x] in interactive_symbols:
         return True
     else:
@@ -111,6 +110,10 @@ def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
                 hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
             elif imported_list[next_y][next_x] == "A":
                 hero_inventory.add_to_inventory(inventory,'Axe', 1, 12, 'Weapon')
+            elif imported_list[next_y][next_x] == "S":
+                hero_inventory.add_to_inventory(inventory,'Staff', 1, 5, 'Weapon')
+            elif imported_list[next_y][next_x] == "B":
+                hero_inventory.add_to_inventory(inventory,'Bow', 1, 7, 'Weapon')
             elif imported_list[next_y][next_x] == "|":
                 hot_warm_cold.main()
                 break
