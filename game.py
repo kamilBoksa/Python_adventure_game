@@ -66,9 +66,9 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
-
-    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">" or imported_list[next_y][next_x] == "|" or imported_list[next_y][next_x] == "$":
-          return True
+    interactive_symbols = ".>|$"
+    if imported_list[next_y][next_x] in interactive_symbols:
+        return True
     else:
         return False
 
