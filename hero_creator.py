@@ -1,5 +1,6 @@
 import os
 
+
 def create_hero():
     name = input("Tell me your name: ")
     os.system('clear')
@@ -36,8 +37,6 @@ def create_hero():
 
     return name, strenght, lifes, inteligence, agility
 
-def save_hero_statistics():
-    pass
 
 def print_hero_statistics(stats):
     print("Name: %s" % stats[0])
