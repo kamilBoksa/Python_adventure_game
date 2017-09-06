@@ -23,6 +23,7 @@ def import_map(filename, imported_list):
 
     with open(filename) as board:
         for element in board:
+            element.replace("#","\033[90m#\33[0m")
             element = element.strip('\n')
             element = list(element)
             imported_list.append(element)
@@ -66,7 +67,7 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
-    interactive_symbols = ".>|$M"
+    interactive_symbols = ".>|$MA"
     if imported_list[next_y][next_x] in interactive_symbols:
         return True
     else:
@@ -107,8 +108,9 @@ def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
                 break
 
             elif imported_list[next_y][next_x] == "$":
-                hero_inventory.add_to_inventory('gold coin', inventory)
-
+                hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
+            elif imported_list[next_y][next_x] == "A":
+                hero_inventory.add_to_inventory(inventory,'Axe', 1, 12, 'Weapon')
             elif imported_list[next_y][next_x] == "|":
                 hot_warm_cold.main()
                 break
@@ -119,7 +121,7 @@ def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
             position_x = next_x
             print_map(imported_list)
             sleep(0.1)
-        elif check_collision(imported_list, next_x, next_y) is False:
+        elif check_collision(imported_list, next_x, next_y) is False and control in "wasd":
             print("You cant move there!")
             next_x = position_x
             next_y = position_y
@@ -173,7 +175,7 @@ def game_core():
     import_map('game_board2.txt', imported_map_2)
     next_y = 1
     next_x = 1
-    inventory = {}
+    inventory = []
 
     story_printer()
     how_to_play()
