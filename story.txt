@@ -1,4 +1,4 @@
-  ["======================================================================",
+  ["=====================================================================",
   "|                                                                    |",
   "|   You were born in a small village Miskolc as a farmer's son.      |",
   "|Your life was running smoothly from day to day until that happened! |",

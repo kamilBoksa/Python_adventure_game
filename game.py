@@ -3,6 +3,7 @@ from time import sleep
 import sys
 import tty
 import termios
+import hero_creator
 
 
 def getch():
@@ -19,68 +20,43 @@ def getch():
 def import_map(filename, imported_list):
 
     with open(filename) as board:
-        for item in board:
-            item = item.strip('\n')
-            item = list(item)
-            imported_list.append(item)
+        for element in board:
+            element = element.strip('\n')
+            element = list(element)
+            imported_list.append(element)
 
     return imported_list
 
 
 def print_map(imported_list):
     os.system('clear')
-    for n in imported_list:
-        print(''.join(n))
+    display_key_tips()
+    for element in imported_list:
+        print(''.join(element))
 
 
 def show_title(filename):
     title = []
 
-    for item in open(filename):
-        item = item.strip('\n')
-        title.append(item)
+    for line in open(filename):
+        line = line.strip('\n')
+        title.append(line)
 
-    for n in title:
-        print(''.join(n))
+    for line in title:
+        print(''.join(line))
 
 
 def story_printer():
 
-<<<<<<< HEAD
-    lines = ["======================================================================",
-            "|                                                                    |",
-            "|   You were born in a small village Miszkolc as a farmer's son.      |",
-            "|Your life was running smoothly from day to day until that happened! |",
-            "|                                                                    |",
-            "|   In the evening, coming back from hunting, you saw the smoke      |",
-            "|rising in the distance over your village.                           |",
-            "|On the spot you found your family and other people murdered.        |",
-            "|                                                                    |",
-            "|Among the fallen you recognized the bandits from the north.         |",
-            "|Bloody Zorka is their leader.                                       |",
-            "|                                                                    |",
-            "|   You swore revenge, now you need to be prepared to face the       |",
-            "|bandits and their boss. Get ready for the adventure!                |",
-            "|                                                                    |",
-            "======================================================================"]
-
-    for line in lines:
-        for c in line:
-            print(c, end='')
-            sys.stdout.flush()
-            sleep(0.02)
-        print('')
-=======
-    lines = open("historia.txt").readlines()
+    lines = open("story.txt").readlines()
     for c in lines:
         print(c, end='')
         sys.stdout.flush()
         sleep(0.2)
     print('')
->>>>>>> 1f4c30261b69e1c8660e188ad140247ddb1ff490
 
 
-def insert_player_to_game_map(player, imported_list):
+def insert_player_to_game_board(player, imported_list):
     position_x = 1
     position_y = 1
     imported_list[position_y][position_x] = player
@@ -89,17 +65,22 @@ def insert_player_to_game_map(player, imported_list):
 
 def check_collision(imported_list, next_x, next_y):
 
-    if imported_list[next_y][next_x] == ".":
+    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">":
         return True
     else:
         return False
 
 
-def move_player(player, imported_list):
-    position_x = 1
+def switch_board1_to_board2(imported_list, next_y, next_x):
+    if imported_list[next_y][next_x] == ">":
+        return True
+    else:
+        return False
+
+
+def move_player(player, imported_list, next_y, next_x, player_stats):
     position_y = 1
-    next_x = 1
-    next_y = 1
+    position_x = 1
 
     move = True
     while move:
@@ -112,10 +93,15 @@ def move_player(player, imported_list):
             next_y = next_y - 1
         elif control == "s":
             next_y = next_y + 1
+        elif control == "q":
+            hero_creator.print_hero_statistics(player_stats)
         elif control == "x":
             exit()
 
         if check_collision(imported_list, next_x, next_y) is True:
+            if imported_list[next_y][next_x] == ">":
+                break
+
             imported_list[position_y][position_x] = "."
             imported_list[next_y][next_x] = "@"
             position_y = next_y
@@ -128,48 +114,71 @@ def move_player(player, imported_list):
             next_y = position_y
 
 
-def create_hero():
-    name = input("Tell me your name: ")
-    print("You have 3 paths to choose", name)
-    classes =open("classes.txt").read()
-    print(classes)
-    choice = input ("If you like to be mage press m, for archer a and for warrrio w")
-    if choice == "m":
-        print('You are a mage')
-        streght = 3
-        lifes = 5
-        inteligence = 10
-    elif choice == "a":
-        print("You are an archer")
-        streght = 5
-        lifes = 10
-        inteligence = 7
-    elif choice == "w":
-        print("You are a warrior")
-        streght = 7
-        lifes = 8
-        inteligence = 5  
-    else:
-        create_hero()
+def display_credits():
+    credits = open("credits.txt").read()
+    print(credits)
 
-    return name, streght, lifes, inteligence
+
+def display_key_tips():
+    print("W,S,A,D - move hero  ||  X - quit game  ||  I - inventory  || Q - statistics ")
+    print(" ")
+
+
+def win_display():
+    win_screen = open("win_screen.txt").read()
+    print(win_screen)
+    again = input("Do you want to play again? y or n")
+    if again == "y":
+        print("ok")
+    elif again == "n":
+        print("Goodbye")
+    else:
+        win_display()
+
+
+def loose_display():
+    loose_screen = open("loose_screen.txt").read()
+    print(loose_screen)
+    again = input("Do you want to play again? y or n")
+    if again == "y":
+        print("ok")  # wywolanie maina??
+    elif again == "n":
+        print("Goodbye")
+    else:
+        win_display()
+
+
+def how_to_play():
+    how_to_play = open("how_to_play.txt").read()
+    print(how_to_play)
+
+
+def game_core():
+    imported_map_1 = []
+    imported_map_2 = []
+    player = '@'
+    show_title('game_title.txt')
+    import_map('game_board.txt', imported_map_1)
+    import_map('game_board2.txt', imported_map_2)
+    next_y = 1
+    next_x = 1
+
+    story_printer()
+    how_to_play()
+    player_stats = hero_creator.create_hero()
+
+    insert_player_to_game_board(player, imported_map_1)
+    move_player(player, imported_map_1, next_y, next_x, player_stats)
+    print_map(imported_map_1)
+
+    insert_player_to_game_board(player, imported_map_2)
+    move_player(player, imported_map_2, next_y, next_x)
+    print_map(imported_map_2)
 
 
 def main():
-    imported_list = []
-    player = '@'
-    show_title('game_title.txt')
-<<<<<<< HEAD
-    #story_printer()
-=======
-    name, streght, lifes, inteligence = create_hero()
-    print(streght)
-    story_printer()
->>>>>>> 1f4c30261b69e1c8660e188ad140247ddb1ff490
-    import_map('game_board.txt', imported_list)
-    insert_player_to_game_map(player, imported_list)
-    move_player(player, imported_list)
-    print_map(imported_list)
+    game_core()
 
 
-main()
+if __name__ == '__main__':
+    main()
