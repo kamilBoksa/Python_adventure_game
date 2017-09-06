@@ -30,6 +30,7 @@ def import_map(filename, imported_list):
 
 def print_map(imported_list):
     os.system('clear')
+    display_key_tips()
     for element in imported_list:
         print(''.join(element))
 
@@ -114,6 +115,11 @@ def move_player(player, imported_list, next_y, next_x):
 def display_credits():
     credits = open("credits.txt").read()
     print(credits)
+
+
+def display_key_tips():
+    print("W,S,A,D - move hero  ||  X - quit game  ||  I - inventory  || Q - statistics ")
+    print(" ")
 
 
 def win_display():
