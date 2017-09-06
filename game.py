@@ -5,6 +5,7 @@ import tty
 import termios
 import hero_creator
 import hero_inventory
+import hot_warm_cold
 
 
 def getch():
@@ -66,8 +67,8 @@ def insert_player_to_game_board(player, imported_list):
 
 def check_collision(imported_list, next_x, next_y):
 
-    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">" or imported_list[next_y][next_x] == "$":
-        return True
+    if imported_list[next_y][next_x] == "." or imported_list[next_y][next_x] == ">" or imported_list[next_y][next_x] == "|" or imported_list[next_y][next_x] == "$":
+          return True
     else:
         return False
 
@@ -104,8 +105,13 @@ def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
         if check_collision(imported_list, next_x, next_y) is True:
             if imported_list[next_y][next_x] == ">":
                 break
+
             elif imported_list[next_y][next_x] == "$":
                 hero_inventory.add_to_inventory('gold coin', inventory)
+
+            elif imported_list[next_y][next_x] == "|":
+                hot_warm_cold.main()
+                break
 
             imported_list[position_y][position_x] = "."
             imported_list[next_y][next_x] = "@"
@@ -179,6 +185,7 @@ def game_core():
 
     insert_player_to_game_board(player, imported_map_2)
     move_player(player, imported_map_2, next_y, next_x, player_stats, inventory)
+
     print_map(imported_map_2)
 
 
