@@ -1,0 +1,10 @@
+ ["======================================================================",
+  "|                        How-to-play                                 |",
+  "|                                                                    |",  
+  "| 	In the game Jack the Python you 3 possible classes - warrior,   |",
+  "|  mage or archer. To move your hero please use WSAD.                |",
+  "|                                                                    |",
+  "|                                                                    |"
+  "|     This game is a property of "La Speluna", a company from San    |",
+  "| Escobar. All rights reserved on the powor of San Escobar king.     |",
+  "|                                                                    |",                                                    "======================================================================"]
