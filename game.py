@@ -139,8 +139,9 @@ def fight_mechanic(imported_list):
                 print("")
                 if hero_lifes == 0:
                     print("You died!!")
-                    sleep(2)
+                    time.sleep(2)
                     loose.main()
+                    play_again()
             else:
                 continue
 

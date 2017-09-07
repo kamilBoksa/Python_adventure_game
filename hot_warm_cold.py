@@ -5,13 +5,13 @@ import loose
 
 def instruction():
 
-    print("Welcome to boss fight")
-    print("The rules are like this")
+    print("Hey little Hero ! Wan't to play a game?")
+    print("Here are the rules:")
     print("I will think of 3-digits number")
-    print("If none of the digits is in the numer the hint is cold")
+    print("If none of the digits is in the number the hint is cold")
     print("If the digit is in in the number - the hint is warm")
     print("If the digit is in the number and on a correct spot - the hint is hot")
-    print("You will die anyway")
+    print("You will die anyway.....but take a try")
 
 
 def choosing():
@@ -27,7 +27,7 @@ def choosing():
 
 
 def user_guessing(first_digit, second_digit, third_digit):
-    
+
     tries = 10
     while tries > 0:
         user_guess = input("Enter the number: ")
@@ -35,20 +35,16 @@ def user_guessing(first_digit, second_digit, third_digit):
         if user_guess.isalpha():
             print("Enter only digits")
         elif len(user_guess) != 3:
-            print("try again")
+            print("Enter 3 digits")
         else:
             user_guess = list(user_guess)
             print(user_guess)
             if (int(user_guess[0]) == first_digit) and (int(user_guess[1])==second_digit) and (int(user_guess[2]) == third_digit):
                 print("You win")
                 win.main()
-            if int(user_guess[0]) == first_digit:
+            elif int(user_guess[0]) == first_digit or int(user_guess[1]) == second_digit or int(user_guess[2]) == third_digit:
                 print("Hot")
-            if int(user_guess[1]) == second_digit:
-                print("Hot")
-            if int(user_guess[2]) == third_digit:
-                print("Hot")
-            if (str(first_digit) in user_guess) or (second_digit in user_guess) or (third_digit in user_guess):
+            elif (str(first_digit) in user_guess) or (second_digit in user_guess) or (third_digit in user_guess):
                 print("warm")
             else:
                 print("cold")
@@ -61,6 +57,7 @@ def user_guessing(first_digit, second_digit, third_digit):
 
 def main():
     instruction()
+    print(choosing())
     first_digit, second_digit, third_digit = choosing()
     user_guessing(first_digit, second_digit, third_digit)
 
