@@ -6,7 +6,10 @@ import termios
 import hero_creator
 import hero_inventory
 import hot_warm_cold
+import win
+import loose
 import random
+
 
 
 def getch():
@@ -129,8 +132,7 @@ def fight_mechanic(imported_list):
                 if hero_lifes == 0:
                     print("You died!!")
                     sleep(2)
-                    #game over screen
-                    quit()
+                    loose.main()
             else:
                 continue
 
@@ -197,30 +199,6 @@ def display_credits():
 def display_key_tips():
     print("W,S,A,D - move hero  ||  X - quit game  ||  I - inventory  || Q - statistics ")
     print(" ")
-
-
-def win_display():
-    win_screen = open("win_screen.txt").read()
-    print(win_screen)
-    again = input("Do you want to play again? y or n")
-    if again == "y":
-        print("ok")
-    elif again == "n":
-        print("Goodbye")
-    else:
-        win_display()
-
-
-def loose_display():
-    loose_screen = open("loose_screen.txt").read()
-    print(loose_screen)
-    again = input("Do you want to play again? y or n")
-    if again == "y":
-        print("ok")  # wywolanie maina??
-    elif again == "n":
-        print("Goodbye")
-    else:
-        win_display()
 
 
 def how_to_play():
