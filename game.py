@@ -28,13 +28,9 @@ def import_map(filename, imported_list):
             element = list(element)
             imported_list.append(element)
 
-
-            red = "\033[31m|\033[0m"
-            yellow = "\033[93m$\33[0m"
-
         for i in range(len(imported_list)):
             for x in range(len(imported_list[i])):
-                if imported_list[i][x] ==  "#":
+                if imported_list[i][x] == "#":
                     imported_list[i][x] = imported_list[i][x].replace("#", "\033[95m#\33[0m")
                 elif imported_list[i][x] == "$":
                     imported_list[i][x] = imported_list[i][x].replace("$", "\033[93m$\33[0m")
@@ -48,9 +44,6 @@ def import_map(filename, imported_list):
                     imported_list[i][x] = imported_list[i][x].replace("|", "\033[31m|\033[0m")
                 elif imported_list[i][x] == "_":
                     imported_list[i][x] = imported_list[i][x].replace("_", "\033[31m_\033[0m")
-
-
-
 
     return imported_list
 
@@ -91,18 +84,20 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
-    interactive_symbols = ["\033[31m|\033[0m", "\033[93m$\33[0m", ".", "A", "S", "\033[96mB\033[0m", "M", ">" ]
+    interactive_symbols = ["\033[31m|\033[0m", "\033[93m$\33[0m", ".", "A", "S", "\033[96mB\033[0m", "M", ">"]
     if imported_list[next_y][next_x] in interactive_symbols:
         return True
     else:
         return False
 
+
 def begin_fight(is_fight):
-    if is_fight == True:
+    if is_fight is True:
         print("You are facing an enemy! Only one of you will survive!")
         sleep(2)
 
-def fight_mechanic(imported_list, next_x, next_y, position_x, position_y):
+
+def fight_mechanic(imported_list):
     hero_lifes = 10
     enemy_lifes = 5
     os.system('clear')
@@ -140,8 +135,6 @@ def fight_mechanic(imported_list, next_x, next_y, position_x, position_y):
                 continue
 
 
-
-
 def player_actions(player, imported_list, next_y, next_x, player_stats, inventory):
     position_y = 1
     position_x = 1
@@ -176,6 +169,10 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
                 hero_inventory.add_to_inventory(inventory,'Staff', 1, 5, 'Weapon')
             elif imported_list[next_y][next_x] == "\033[96mB\033[0m":
                 hero_inventory.add_to_inventory(inventory,'Bow', 1, 7, 'Weapon')
+            elif imported_list[next_y][next_x] == "M":
+                begin_fight(True)
+                fight_mechanic(imported_list)
+
             elif imported_list[next_y][next_x] == "\033[31m|\033[0m":
                 hot_warm_cold.main()
                 break
