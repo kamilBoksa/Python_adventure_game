@@ -1,5 +1,14 @@
 import random
 
+def instruction():
+    print("Welcome to boss fight")
+    print("The rules are like this")
+    print("I will think of 3-digits number")
+    print("If none of the digits is in the numer the hint is cold")
+    print("If the digit is in in the number - the hint is warm")
+    print("If the digit is in the number and on a correct spot - the hint is hot")
+    print("You will die anyway")
+
 
 def choosing():
     first_digit = random.randint(1, 9)
@@ -39,6 +48,7 @@ def user_guessing(first_digit, second_digit, third_digit):
 
 
 def main():
+    instruction()
     first_digit, second_digit, third_digit = choosing()
     user_guessing(first_digit, second_digit, third_digit)
 
