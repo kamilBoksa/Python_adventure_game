@@ -12,56 +12,66 @@ def print_instruction():
     print("If the digit is in in the number - the hint is warm")
     print("If the digit is in the number and on a correct spot - the hint is hot")
     print("You will die anyway.....but take a try")
+    print("")
 
 
-def pick_random_numbers():
-    """Draws numbers to be guessed by the player"""
-
-    first_digit = random.randint(1, 9)
-    second_digit = random.randint(0, 9)
-    third_digit = random.randint(0, 9)
-    while (first_digit == second_digit) or (second_digit == third_digit) or (first_digit == third_digit):
-        first_digit = str(random.randint(1, 9))
-        second_digit = str(random.randint(0, 9))
-        third_digit = str(random.randint(0, 9))
-    return first_digit, second_digit, third_digit
+def get_random_digits():
+    correct_answer = []
+    while len(correct_answer) < 3:
+        digit = random.randint(0, 9)
+        if digit not in correct_answer:
+            correct_answer.append(digit)
+    return correct_answer
 
 
-def perform_guessing_game(first_digit, second_digit, third_digit):
-    """Runs the guessing number game"""
-
-    tries = 10
-    while tries > 0:
-        user_guess = input("Enter the number: ")
-
+def get_user_input():
+    while True:
+        user_guess = input("Enter number: ")
         if user_guess.isalpha():
-            print("Enter only digits")
+            print("Enter digits only!")
         elif len(user_guess) != 3:
-            print("Enter 3 digits")
+            print("You have to enter exactly 3 digits!")
         else:
-            user_guess = list(user_guess)
-            print(user_guess)
-            if (int(user_guess[0]) == first_digit) and (int(user_guess[1]) == second_digit) and (int(user_guess[2]) == third_digit):
-                print("You win")
-                win.main()
-                break
-            elif int(user_guess[0]) == first_digit or int(user_guess[1]) == second_digit or int(user_guess[2]) == third_digit:
-                print("Hot")
-            elif (str(first_digit) in user_guess) or (second_digit in user_guess) or (third_digit in user_guess):
-                print("warm")
-            else:
-                print("cold")
-        tries -= 1
-        print("You have", tries, "chances left")
-    else:
-        print("You loose")
-        loose.main()
+            return list(user_guess)
+
+
+def compare_user_input_with_answer(user_guess, correct_answer):
+    index = 0
+    hint_list = []
+    for digit in correct_answer:
+        if str(digit) == user_guess[index]:
+            hint_list.insert(0, 'Hot')
+        elif str(digit) in user_guess:
+            hint_list.append("Warm")
+        index += 1
+    if not hint_list:
+        hint_list.append("Cold")
+    return hint_list
+
+
+def check_result(hint_list):
+    if hint_list == ["Hot"] * 3:
+        return True
 
 
 def main():
     print_instruction()
-    first_digit, second_digit, third_digit = pick_random_numbers()
-    perform_guessing_game(first_digit, second_digit, third_digit)
+    correct_answer = get_random_digits()
+    lifes_left = 10
+    while lifes_left > 0:
+        print("You have %s lifes left!" % lifes_left)
+        user_guess = get_user_input()
+        result = compare_user_input_with_answer(user_guess, correct_answer)
+        print(result)
+        if check_result(result):
+            print("VICTORY")
+            win.main()
+            break
+        lifes_left -= 1
+        if lifes_left == 0:
+            print("DEFEAT!")
+            print("Correct answer was: %s" % correct_answer)
+            loose.main()
 
 
 if __name__ == '__main__':

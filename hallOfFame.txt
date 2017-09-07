@@ -1,2 +1,4 @@
 Hero name: Ares, Time played: 250.66,  Gold gathered: 33 
 Hero name: Albert von Hohenzolern, Time played: 160.91,  Gold gathered: None 
+Hero name: Alex, Time played: 61.60,  Gold gathered: 5 
+Hero name: Mirabella, Time played: 53.45,  Gold gathered: None 
