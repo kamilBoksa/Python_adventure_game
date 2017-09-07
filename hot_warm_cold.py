@@ -27,7 +27,7 @@ def choosing():
 
 
 def user_guessing(first_digit, second_digit, third_digit):
-    
+
     tries = 10
     while tries > 0:
         user_guess = input("Enter the number: ")
@@ -63,6 +63,7 @@ def main():
     instruction()
     first_digit, second_digit, third_digit = choosing()
     user_guessing(first_digit, second_digit, third_digit)
+
 
 if __name__ == '__main__':
     main()

@@ -33,6 +33,7 @@ def total_weight(inventory):
 
 
 def total_coins(inventory):
+
     total_coins = 0
     for index in range(len(inventory)):
         for key in inventory[index]:
@@ -40,7 +41,7 @@ def total_coins(inventory):
                 return inventory[index].get(key)[0]
 
 def display_inventory_items(inventory):
-    
+
     for index in range(len(inventory)):
         for key in inventory[index]:
             count = inventory[index].get(key)[0]
@@ -50,7 +51,7 @@ def display_inventory_items(inventory):
 
 
 def print_table(inventory):
-    
+
     print("INVENTORY")
     print('{:13} {:8} {:8} {:1}'.format("Name", "Count", "Weight", "Type"))
     print("___________________________________________")
@@ -60,6 +61,7 @@ def print_table(inventory):
 
 
 def main():
+    
     inventory = []
     add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
     add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
