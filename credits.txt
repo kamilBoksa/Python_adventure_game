@@ -1,10 +1,11 @@
- ["======================================================================",
-  "|                        Credits/about authors                       |",
-  "|                                                                    |",  
-  "| 	This game was created by Marta Staporek and Kamil Boksa. They   |",
-  "|  are the students in Krakow's programming school - Codecool        |",
-  "|                                                                    |",
-  "|                                                                    |"
-  "|     This game is a property of "La Speluna", a company from San    |",
-  "| Escobar. All rights reserved on the power of San Escobar king.     |",
-  "|                                                                    |",                                                    "======================================================================"]
+  ======================================================================
+  |                        Credits/about authors                       |
+  |                                                                    |
+  | 	This game was created by Marta Staporek and Kamil Boksa. They    |
+  |  are the students in Krakow's programming school - Codecool        |
+  |                                                                    |
+  |                                                                    |
+  |     This game is a property of La Speluna a company from San       |
+  | Escobar. All rights reserved on the power of San Escobar king.     |
+  |                                                                    |
+   ======================================================================

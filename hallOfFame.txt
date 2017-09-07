@@ -1,3 +1,4 @@
 Hero name: Kamil, Time played: 49.19,  Gold gathered: 5 
 Hero name: Mlody, Time played: 49.43,  Gold gathered: 4 
 Hero name: Kamil, Time played: 90.75,  Gold gathered: 7 
+Hero name: ja, Time played: 178.31,  Gold gathered: 5 
