@@ -1,4 +1,6 @@
 import random
+import win
+import loose
 
 def instruction():
     print("Welcome to boss fight")
@@ -35,7 +37,7 @@ def user_guessing(first_digit, second_digit, third_digit):
             print(user_guess)
             if (int(user_guess[0]) == first_digit) and (int(user_guess[1])==second_digit) and (int(user_guess[2]) == third_digit):
                 print("You win")
-                break
+                win.main()
             if (int(user_guess[0]) == first_digit) or (int(user_guess[1]) == second_digit) or (int(user_guess[2]) == third_digit):
                 print("Hot")
             if (str(first_digit) in user_guess) or (second_digit in user_guess) or (third_digit in user_guess):
@@ -45,6 +47,7 @@ def user_guessing(first_digit, second_digit, third_digit):
         tries -= 1
     else:
         print("You loose")
+        loose.main()
 
 
 def main():
