@@ -116,7 +116,7 @@ def begin_fight(is_fight):
 
 def fight_mechanic(imported_list):
 
-    hero_lifes = 1
+    hero_lifes = 10
     enemy_lifes = 5
     os.system('clear')
     print("Bandit: Come and face your destiny poor hero!")
