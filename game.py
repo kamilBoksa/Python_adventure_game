@@ -28,6 +28,30 @@ def import_map(filename, imported_list):
             element = list(element)
             imported_list.append(element)
 
+
+            red = "\033[31m|\033[0m"
+            yellow = "\033[93m$\33[0m"
+
+        for i in range(len(imported_list)):
+            for x in range(len(imported_list[i])):
+                if imported_list[i][x] ==  "#":
+                    imported_list[i][x] = imported_list[i][x].replace("#", "\033[95m#\33[0m")
+                elif imported_list[i][x] == "$":
+                    imported_list[i][x] = imported_list[i][x].replace("$", "\033[93m$\33[0m")
+                elif imported_list[i][x] == "^":
+                    imported_list[i][x] = imported_list[i][x].replace("^", "\033[32m^\033[0m")
+                elif imported_list[i][x] == "=":
+                    imported_list[i][x] = imported_list[i][x].replace("=", "\033[34m=\033[0m")
+                elif imported_list[i][x] == "B":
+                    imported_list[i][x] = imported_list[i][x].replace("B", "\033[96mB\033[0m")
+                elif imported_list[i][x] == "|":
+                    imported_list[i][x] = imported_list[i][x].replace("|", "\033[31m|\033[0m")
+                elif imported_list[i][x] == "_":
+                    imported_list[i][x] = imported_list[i][x].replace("_", "\033[31m_\033[0m")
+
+
+
+
     return imported_list
 
 
@@ -67,7 +91,7 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
-    interactive_symbols = ".>|$MASB"
+    interactive_symbols = ["\033[31m|\033[0m", "\033[93m$\33[0m", ".", "A", "S", "\033[96mB\033[0m", "M", ">" ]
     if imported_list[next_y][next_x] in interactive_symbols:
         return True
     else:
@@ -144,18 +168,15 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
             if imported_list[next_y][next_x] == ">":
                 break
 
-            elif imported_list[next_y][next_x] == "$":
-                hero_inventory.add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
+            elif imported_list[next_y][next_x] == "\033[93m$\33[0m" :
+                hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
             elif imported_list[next_y][next_x] == "A":
                 hero_inventory.add_to_inventory(inventory, 'Axe', 1, 12, 'Weapon')
             elif imported_list[next_y][next_x] == "S":
-                hero_inventory.add_to_inventory(inventory, 'Staff', 1, 5, 'Weapon')
-            elif imported_list[next_y][next_x] == "B":
-                hero_inventory.add_to_inventory(inventory, 'Bow', 1, 7, 'Weapon')
-            elif imported_list[next_y][next_x] == "M":
-                begin_fight(True)
-                fight_mechanic(imported_list, next_x, next_y, position_x, position_y)
-            elif imported_list[next_y][next_x] == "|":
+                hero_inventory.add_to_inventory(inventory,'Staff', 1, 5, 'Weapon')
+            elif imported_list[next_y][next_x] == "\033[96mB\033[0m":
+                hero_inventory.add_to_inventory(inventory,'Bow', 1, 7, 'Weapon')
+            elif imported_list[next_y][next_x] == "\033[31m|\033[0m":
                 hot_warm_cold.main()
                 break
 
