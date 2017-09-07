@@ -6,6 +6,7 @@ import termios
 import hero_creator
 import hero_inventory
 import hot_warm_cold
+import random
 
 
 def getch():
@@ -72,15 +73,52 @@ def check_collision(imported_list, next_x, next_y):
     else:
         return False
 
+def begin_fight(is_fight):
+    if is_fight == True:
+        print("You are facing an enemy! Only one of you will survive!")
+        sleep(2)
 
-def switch_board1_to_board2(imported_list, next_y, next_x):
-    if imported_list[next_y][next_x] == ">":
-        return True
-    else:
-        return False
+def fight_mechanic(imported_list, next_x, next_y, position_x, position_y):
+    hero_lifes = 10
+    enemy_lifes = 5
+    os.system('clear')
+    print("Bandit: Come and face your destiny poor hero!")
+    while True:
+        decision = input("Press A to attack enemy! ")
+        if decision == "A":
+            hero_roll = random.randint(0, 10)
+            enemy_roll = random.randint(0, 10)
+            print("Your attack power: %s" % hero_roll)
+            print("Enemy attack power: %s" % enemy_roll)
+            if hero_roll > enemy_roll:
+                print("You hardly wounded the enemy!")
+                enemy_lifes -= 1
+                print("Enemy lifes left: %s" % enemy_lifes)
+                print("")
+                if enemy_lifes == 0:
+                    print("You killed the enemy!")
+                    sleep(1)
+                    break
+            elif hero_roll == enemy_roll:
+                print("Duce! Enemy parried your attack!")
+                print("")
+            elif hero_roll < enemy_roll:
+                print("You lost one life!")
+                hero_lifes -= 1
+                print("Lifes left %s" % hero_lifes)
+                print("")
+                if hero_lifes == 0:
+                    print("You died!!")
+                    sleep(2)
+                    #game over screen
+                    quit()
+            else:
+                continue
 
 
-def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
+
+
+def player_actions(player, imported_list, next_y, next_x, player_stats, inventory):
     position_y = 1
     position_x = 1
 
@@ -107,13 +145,16 @@ def move_player(player, imported_list, next_y, next_x, player_stats, inventory):
                 break
 
             elif imported_list[next_y][next_x] == "$":
-                hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
+                hero_inventory.add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
             elif imported_list[next_y][next_x] == "A":
-                hero_inventory.add_to_inventory(inventory,'Axe', 1, 12, 'Weapon')
+                hero_inventory.add_to_inventory(inventory, 'Axe', 1, 12, 'Weapon')
             elif imported_list[next_y][next_x] == "S":
-                hero_inventory.add_to_inventory(inventory,'Staff', 1, 5, 'Weapon')
+                hero_inventory.add_to_inventory(inventory, 'Staff', 1, 5, 'Weapon')
             elif imported_list[next_y][next_x] == "B":
-                hero_inventory.add_to_inventory(inventory,'Bow', 1, 7, 'Weapon')
+                hero_inventory.add_to_inventory(inventory, 'Bow', 1, 7, 'Weapon')
+            elif imported_list[next_y][next_x] == "M":
+                begin_fight(True)
+                fight_mechanic(imported_list, next_x, next_y, position_x, position_y)
             elif imported_list[next_y][next_x] == "|":
                 hot_warm_cold.main()
                 break
@@ -185,12 +226,11 @@ def game_core():
     player_stats = hero_creator.create_hero()
 
     insert_player_to_game_board(player, imported_map_1)
-    move_player(player, imported_map_1, next_y, next_x, player_stats, inventory)
+    player_actions(player, imported_map_1, next_y, next_x, player_stats, inventory)
     print_map(imported_map_1)
 
     insert_player_to_game_board(player, imported_map_2)
-    move_player(player, imported_map_2, next_y, next_x, player_stats, inventory)
-
+    player_actions(player, imported_map_2, next_y, next_x, player_stats, inventory)
     print_map(imported_map_2)
 
 
