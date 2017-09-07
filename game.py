@@ -113,18 +113,25 @@ def begin_fight(is_fight):
         time.sleep(2)
 
 
-def fight_mechanic(imported_list):
+def fight_mechanic(player_stats):
 
-    hero_lifes = 10
+    hero_lifes = player_stats[2]
+    if player_stats[5] == "Mage":
+        bonus_attack = player_stats[3]
+    elif player_stats[5] == "Archer":
+        bonus_attack = player_stats[4]
+    elif player_stats[5] == "Warrior":
+        bonus_attack = player_stats[1]
+
     enemy_lifes = 5
     os.system('clear')
     print("Bandit: Come and face your destiny poor hero!")
 
     while True:
         decision = input("Press A to attack enemy! ")
-        if decision == "A":
-            hero_roll = random.randint(0, 10)
-            enemy_roll = random.randint(0, 10)
+        if decision == "A" or decision == "a":
+            hero_roll = random.randint(0, 10) + bonus_attack
+            enemy_roll = random.randint(0, 15)
             print("Your attack power: %s" % hero_roll)
             print("Enemy attack power: %s" % enemy_roll)
             if hero_roll > enemy_roll:
@@ -183,13 +190,16 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
                 hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
             elif imported_list[next_y][next_x] == "A":
                 hero_inventory.add_to_inventory(inventory, 'Axe', 1, 12, 'Weapon')
+                player_stats[1] += 3
             elif imported_list[next_y][next_x] == "S":
                 hero_inventory.add_to_inventory(inventory,'Staff', 1, 5, 'Weapon')
+                player_stats[3] += 3
             elif imported_list[next_y][next_x] == "\033[96mB\033[0m":
                 hero_inventory.add_to_inventory(inventory,'Bow', 1, 7, 'Weapon')
+                player_stats[4] += 3
             elif imported_list[next_y][next_x] == "M":
                 begin_fight(True)
-                fight_mechanic(imported_list)
+                fight_mechanic(player_stats)
 
             elif imported_list[next_y][next_x] == "\033[31m|\033[0m":
                 hot_warm_cold.main()

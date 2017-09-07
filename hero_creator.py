@@ -12,35 +12,37 @@ def create_hero():
     while True:
         choice = input("If you like to be mage press M, for archer A and for warrrior W: ")
         if choice == "M":
-            print("You are a mage!")
-            strenght = 3
-            inteligence = 10
+            profession = "Mage"
+            strength = 3
+            intelligence = 10
             lifes = 5
             agility = 2
+            hero_stats = [name, strength, lifes, intelligence, agility, profession]
             break
         elif choice == "A":
-            print("You are an archer!")
-            strenght = 3
+            profession = "Archer"
+            strength = 3
             lifes = 7
-            inteligence = 2
+            intelligence = 2
             agility = 10
+            hero_stats = [name, strength, lifes, intelligence, agility, profession]
             break
         elif choice == "W":
-            print("You are a warrior!")
-            strenght = 8
+            profession = "Warrior"
+            strength = 8
             lifes = 8
-            inteligence = 2
+            intelligence = 2
             agility = 5
+            hero_stats = [name, strength, lifes, intelligence, agility, profession]
             break
         else:
             print("Wrong input! Please enter: M, A or W")
 
-    return name, strenght, lifes, inteligence, agility
+    return hero_stats
 
 
 def get_hero_statistics(hero_stats):
 
-    hero_stats = create_hero()
     name = hero_stats[0]
     strength = hero_stats[1]
     lifes = hero_stats[2]
@@ -49,11 +51,13 @@ def get_hero_statistics(hero_stats):
 
     return name, strength, lifes, intelligence, agility
 
+
 def print_hero_statistics(hero_stats):
 
     print("")
     print("_____________________")
     print("Name: %s" % hero_stats[0])
+    print("Profession: %s" % hero_stats[5])
     print("Strenght: %s" % hero_stats[1])
     print("Intelligence: %s" % hero_stats[3])
     print("Agility: %s" % hero_stats[4])
