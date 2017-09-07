@@ -14,6 +14,7 @@ import export_score
 
 
 def getch():
+
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -53,6 +54,7 @@ def import_map(filename, imported_list):
 
 
 def print_map(imported_list):
+
     os.system('clear')
     display_key_tips()
     for element in imported_list:
@@ -60,6 +62,7 @@ def print_map(imported_list):
 
 
 def show_title(filename):
+
     title = []
 
     for line in open(filename):
@@ -81,6 +84,7 @@ def story_printer():
 
 
 def insert_player_to_game_board(player, imported_list):
+
     position_x = 1
     position_y = 1
     imported_list[position_y][position_x] = player
@@ -88,6 +92,7 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
+
     interactive_symbols = ["\033[31m|\033[0m", "\033[93m$\33[0m", ".", "A", "S", "\033[96mB\033[0m", "M", ">"]
     if imported_list[next_y][next_x] in interactive_symbols:
         return True
@@ -102,10 +107,12 @@ def begin_fight(is_fight):
 
 
 def fight_mechanic(imported_list):
+
     hero_lifes = 10
     enemy_lifes = 5
     os.system('clear')
     print("Bandit: Come and face your destiny poor hero!")
+
     while True:
         decision = input("Press A to attack enemy! ")
         if decision == "A":
@@ -139,10 +146,11 @@ def fight_mechanic(imported_list):
 
 
 def player_actions(player, imported_list, next_y, next_x, player_stats, inventory):
+
     position_y = 1
     position_x = 1
-
     move = True
+
     while move:
         control = getch()
         if control == "a":
@@ -163,7 +171,6 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
         if check_collision(imported_list, next_x, next_y) is True:
             if imported_list[next_y][next_x] == ">":
                 break
-
             elif imported_list[next_y][next_x] == "\033[93m$\33[0m" :
                 hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
             elif imported_list[next_y][next_x] == "A":
@@ -186,15 +193,11 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
             position_x = next_x
             print_map(imported_list)
             time.sleep(0.1)
+
         elif check_collision(imported_list, next_x, next_y) is False and control in "wasd":
             print("You cant move there!")
             next_x = position_x
             next_y = position_y
-
-
-def display_credits():
-    credits = open("credits.txt").read()
-    print(credits)
 
 
 def display_key_tips():
