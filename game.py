@@ -65,22 +65,29 @@ def show_title(filename):
 
     title = []
 
-    for line in open(filename):
+    file = open(filename)
+
+    for line in file:
         line = line.strip('\n')
         title.append(line)
 
     for line in title:
         print(''.join(line))
 
+    file.close()
+
 
 def story_printer():
 
-    lines = open("story.txt").readlines()
+    file = open("story.txt")
+    lines = file.readlines()
     for c in lines:
         print(c, end='')
         sys.stdout.flush()
         time.sleep(0.2)
     print('')
+
+    file.close()
 
 
 def insert_player_to_game_board(player, imported_list):
@@ -101,6 +108,7 @@ def check_collision(imported_list, next_x, next_y):
 
 
 def begin_fight(is_fight):
+
     if is_fight is True:
         print("You are facing an enemy! Only one of you will survive!")
         time.sleep(2)
@@ -108,7 +116,7 @@ def begin_fight(is_fight):
 
 def fight_mechanic(imported_list):
 
-    hero_lifes = 10
+    hero_lifes = 1
     enemy_lifes = 5
     os.system('clear')
     print("Bandit: Come and face your destiny poor hero!")
@@ -202,21 +210,32 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
 
 
 def display_key_tips():
+
     print("W,S,A,D - move hero  ||  X - quit game  ||  I - inventory  || Q - statistics ")
     print(" ")
 
 
 def how_to_play():
-    how_to_play = open("how_to_play.txt").read()
+
+    file = open("how_to_play.txt")
+    how_to_play = file.read()
     print(how_to_play)
+    file.close()
+
 
 def play_again():
+
     again = input("Do you want to play again? y or n: ")
     if again == "y":
         os.system("clear")
         game_core()
     elif again == "n":
         print("Goodbye")
+        file = open("credits.txt")
+        credits = file.read()
+        print(credits)
+        file.close
+        quit()
     else:
         "Enter correct answer!"
         play_again()
@@ -249,6 +268,7 @@ def game_core():
 
 
 def main():
+
     game_core()
     play_again()
 

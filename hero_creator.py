@@ -2,9 +2,9 @@ import os
 
 
 def create_hero():
+
     name = input("Tell me your name: ")
     os.system('clear')
-
     print("You have 3 paths to choose", name)
     classes = open("classes.txt").read()
     print(classes)
@@ -39,8 +39,8 @@ def create_hero():
 
 
 def get_hero_statistics(hero_stats):
-    hero_stats = create_hero()
 
+    hero_stats = create_hero()
     name = hero_stats[0]
     strength = hero_stats[1]
     lifes = hero_stats[2]
@@ -50,6 +50,7 @@ def get_hero_statistics(hero_stats):
     return name, strength, lifes, intelligence, agility
 
 def print_hero_statistics(hero_stats):
+
     print("")
     print("_____________________")
     print("Name: %s" % hero_stats[0])

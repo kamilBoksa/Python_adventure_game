@@ -1,8 +1,11 @@
 def loose_display():
 
-    loose_screen = open("loose_screen.txt").read()
+    file = open("loose_screen.txt")
+    loose_screen = file.read()
     loose_screen = loose_screen.replace("=", "\033[31m=\033[0m")
+    loose_screen = loose_screen.replace("|", "\033[31m|\033[0m")
     print(loose_screen)
+    file.close()
 
 
 def main():

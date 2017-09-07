@@ -61,5 +61,6 @@ def main():
     first_digit, second_digit, third_digit = choosing()
     user_guessing(first_digit, second_digit, third_digit)
 
+
 if __name__ == '__main__':
     main()
