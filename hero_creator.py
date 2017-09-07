@@ -38,12 +38,23 @@ def create_hero():
     return name, strenght, lifes, inteligence, agility
 
 
-def print_hero_statistics(stats):
+def get_hero_statistics(hero_stats):
+    hero_stats = create_hero()
+
+    name = hero_stats[0]
+    strength = hero_stats[1]
+    lifes = hero_stats[2]
+    intelligence = hero_stats[3]
+    agility = hero_stats[4]
+
+    return name, strength, lifes, intelligence, agility
+
+def print_hero_statistics(hero_stats):
     print("")
     print("_____________________")
-    print("Name: %s" % stats[0])
-    print("Strenght: %s" % stats[1])
-    print("Intelligence: %s" % stats[3])
-    print("Agility: %s" % stats[4])
-    print("Lifes: %s" % stats[2])
+    print("Name: %s" % hero_stats[0])
+    print("Strenght: %s" % hero_stats[1])
+    print("Intelligence: %s" % hero_stats[3])
+    print("Agility: %s" % hero_stats[4])
+    print("Lifes: %s" % hero_stats[2])
     print("_____________________")

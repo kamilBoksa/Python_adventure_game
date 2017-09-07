@@ -26,7 +26,7 @@ def choosing():
 def user_guessing(first_digit, second_digit, third_digit):
     tries = 10
     while tries > 0:
-        user_guess = input("Enter the number")
+        user_guess = input("Enter the number: ")
 
         if user_guess.isalpha():
             print("Enter only digits")

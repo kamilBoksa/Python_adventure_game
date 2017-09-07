@@ -24,17 +24,6 @@ def getch():
     return ch
 
 
-def start_timer(game_time):
-    game_time == time.time()
-    return game_time
-
-
-def stop_timer(start_time):
-    start_time = start_timer(start_time)
-    end_time = start_time - time.time()
-    return end_time
-
-
 def import_map(filename, imported_list):
 
     with open(filename) as board:
@@ -217,9 +206,19 @@ def how_to_play():
     how_to_play = open("how_to_play.txt").read()
     print(how_to_play)
 
+def play_again():
+    again = input("Do you want to play again? y or n: ")
+    if again == "y":
+        os.system("clear")
+        game_core()
+    elif again == "n":
+        print("Goodbye")
+    else:
+        "Enter correct answer!"
+        play_again()
 
 def game_core():
-    game_time = 0
+
     imported_map_1 = []
     imported_map_2 = []
     player = '@'
@@ -233,20 +232,21 @@ def game_core():
     story_printer()
     how_to_play()
     player_stats = hero_creator.create_hero()
-    start_timer(game_time)
+    start_time = time.time()
 
     insert_player_to_game_board(player, imported_map_1)
     player_actions(player, imported_map_1, next_y, next_x, player_stats, inventory)
 
     insert_player_to_game_board(player, imported_map_2)
     player_actions(player, imported_map_2, next_y, next_x, player_stats, inventory)
-    stop_timer(game_time)
-    export_score.export_statistics('hallOfFame.txt', inventory, game_time)
+    stop_time = time.time()
+    game_time = stop_time - start_time
+    export_score.export_statistics('hallOfFame.txt', player_stats, inventory, game_time)
 
 
 def main():
     game_core()
-
+    play_again()
 
 if __name__ == '__main__':
     main()

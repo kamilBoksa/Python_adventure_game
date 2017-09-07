@@ -29,6 +29,13 @@ def total_weight(inventory):
     return(total_weight)
 
 
+def total_coins(inventory):
+    total_coins = 0
+    for index in range(len(inventory)):
+        for key in inventory[index]:
+            if key == "Gold coin":
+                return inventory[index].get(key)[0]
+
 def display_inventory_items(inventory):
     for index in range(len(inventory)):
         for key in inventory[index]:
@@ -45,3 +52,15 @@ def print_table(inventory):
     display_inventory_items(inventory)
     print("___________________________________________")
     print("Total weight: %s / 100" % total_weight(inventory))
+
+
+def main():
+    inventory = []
+    add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
+    add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
+    add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
+    add_to_inventory(inventory, 'Axe', 1, 1, 'Weapon')
+    print(total_coins(inventory))
+
+if __name__ == '__main__':
+    main()
