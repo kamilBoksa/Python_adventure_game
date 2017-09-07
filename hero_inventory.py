@@ -1,10 +1,12 @@
 def collectable_item(item_name, count, weight, item_type):
+
     item_parameters = [count, weight, item_type]
     item_dict = {item_name: item_parameters}
     return item_dict
 
 
 def add_to_inventory(inventory, item_name, count, weight, item_type, gathered_items=[]):
+
     item_dict = collectable_item(item_name, count, weight, item_type)
     if inventory:
         for index in range(len(inventory)):
@@ -22,6 +24,7 @@ def add_to_inventory(inventory, item_name, count, weight, item_type, gathered_it
     return inventory
 
 def total_weight(inventory):
+
     total_weight = 0
     for index in range(len(inventory)):
         for key in inventory[index]:
@@ -30,6 +33,7 @@ def total_weight(inventory):
 
 
 def display_inventory_items(inventory):
+    
     for index in range(len(inventory)):
         for key in inventory[index]:
             count = inventory[index].get(key)[0]
@@ -39,6 +43,7 @@ def display_inventory_items(inventory):
 
 
 def print_table(inventory):
+    
     print("INVENTORY")
     print('{:13} {:8} {:8} {:1}'.format("Name", "Count", "Weight", "Type"))
     print("___________________________________________")

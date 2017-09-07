@@ -2,7 +2,9 @@ import random
 import win
 import loose
 
+
 def instruction():
+
     print("Welcome to boss fight")
     print("The rules are like this")
     print("I will think of 3-digits number")
@@ -13,6 +15,7 @@ def instruction():
 
 
 def choosing():
+
     first_digit = random.randint(1, 9)
     second_digit = random.randint(0, 9)
     third_digit = random.randint(0, 9)
@@ -24,6 +27,7 @@ def choosing():
 
 
 def user_guessing(first_digit, second_digit, third_digit):
+    
     tries = 10
     while tries > 0:
         user_guess = input("Enter the number")
