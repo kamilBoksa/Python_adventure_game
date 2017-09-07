@@ -12,7 +12,6 @@ import random
 import export_score
 
 
-
 def getch():
 
     fd = sys.stdin.fileno()
