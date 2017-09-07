@@ -1,4 +1,5 @@
 def collectable_item(item_name, count, weight, item_type):
+    """Creates and returns dictionary with item_name as a key and list with item parameters as a value"""
 
     item_parameters = [count, weight, item_type]
     item_dict = {item_name: item_parameters}
@@ -6,6 +7,7 @@ def collectable_item(item_name, count, weight, item_type):
 
 
 def add_to_inventory(inventory, item_name, count, weight, item_type, gathered_items=[]):
+    """Add new item to players inventory or increases item count if item already gathered, returns updated inventory"""
 
     item_dict = collectable_item(item_name, count, weight, item_type)
     if inventory:
@@ -23,7 +25,9 @@ def add_to_inventory(inventory, item_name, count, weight, item_type, gathered_it
 
     return inventory
 
+
 def total_weight(inventory):
+    """Counts and returns total_weight of items in inventory"""
 
     total_weight = 0
     for index in range(len(inventory)):
@@ -33,6 +37,7 @@ def total_weight(inventory):
 
 
 def total_coins(inventory):
+    """Count and returns number of coins placed in inventory"""
 
     total_coins = 0
     for index in range(len(inventory)):
@@ -40,7 +45,9 @@ def total_coins(inventory):
             if key == "Gold coin":
                 return inventory[index].get(key)[0]
 
+
 def display_inventory_items(inventory):
+    """ Prints items contained in inventory"""
 
     for index in range(len(inventory)):
         for key in inventory[index]:
@@ -51,6 +58,7 @@ def display_inventory_items(inventory):
 
 
 def print_table(inventory):
+    """Prints inventory in formatted way"""
 
     print("INVENTORY")
     print('{:13} {:8} {:8} {:1}'.format("Name", "Count", "Weight", "Type"))
@@ -61,7 +69,7 @@ def print_table(inventory):
 
 
 def main():
-    
+
     inventory = []
     add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
     add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')

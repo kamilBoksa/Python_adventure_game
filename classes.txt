@@ -32,5 +32,5 @@
 
 Stength           3                   8                 3
 Lifes             5                   8                 7
-Inteligence      10                   2                 2
+Intelligence      10                  2                 2
 Agility           2                   5                10

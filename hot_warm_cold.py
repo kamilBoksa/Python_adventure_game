@@ -3,7 +3,7 @@ import win
 import loose
 
 
-def instruction():
+def print_instruction():
 
     print("Hey little Hero ! Wan't to play a game?")
     print("Here are the rules:")
@@ -14,7 +14,8 @@ def instruction():
     print("You will die anyway.....but take a try")
 
 
-def choosing():
+def pick_random_numbers():
+    """Draws numbers to be guessed by the player"""
 
     first_digit = random.randint(1, 9)
     second_digit = random.randint(0, 9)
@@ -26,7 +27,8 @@ def choosing():
     return first_digit, second_digit, third_digit
 
 
-def user_guessing(first_digit, second_digit, third_digit):
+def perform_guessing_game(first_digit, second_digit, third_digit):
+    """Runs the guessing number game"""
 
     tries = 10
     while tries > 0:
@@ -39,7 +41,7 @@ def user_guessing(first_digit, second_digit, third_digit):
         else:
             user_guess = list(user_guess)
             print(user_guess)
-            if (int(user_guess[0]) == first_digit) and (int(user_guess[1])==second_digit) and (int(user_guess[2]) == third_digit):
+            if (int(user_guess[0]) == first_digit) and (int(user_guess[1]) == second_digit) and (int(user_guess[2]) == third_digit):
                 print("You win")
                 win.main()
                 break
@@ -57,10 +59,9 @@ def user_guessing(first_digit, second_digit, third_digit):
 
 
 def main():
-    instruction()
-    first_digit, second_digit, third_digit = choosing()
-    user_guessing(first_digit, second_digit, third_digit)
-
+    print_instruction()
+    first_digit, second_digit, third_digit = pick_random_numbers()
+    perform_guessing_game(first_digit, second_digit, third_digit)
 
 
 if __name__ == '__main__':

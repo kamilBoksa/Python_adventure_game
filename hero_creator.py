@@ -2,6 +2,7 @@ import os
 
 
 def create_hero():
+    """ Creates hero with class defined by player, returns list with saved hero statistics"""
 
     name = input("Tell me your name: ")
     os.system('clear')
@@ -9,8 +10,11 @@ def create_hero():
     classes = open("classes.txt").read()
     print(classes)
 
+
     while True:
         choice = input("If you like to be mage press M, for archer A and for warrrior W: ")
+        choice = choice.upper()
+
         if choice == "M":
             profession = "Mage"
             strength = 3
@@ -42,14 +46,16 @@ def create_hero():
 
 
 def get_hero_statistics(hero_stats):
+    """Takes hero statistics and returns them in a tuple"""
 
     name = hero_stats[0]
     strength = hero_stats[1]
     lifes = hero_stats[2]
     intelligence = hero_stats[3]
     agility = hero_stats[4]
+    profession = hero_stats[5]
 
-    return name, strength, lifes, intelligence, agility
+    return name, strength, lifes, intelligence, agility, profession
 
 
 def print_hero_statistics(hero_stats):

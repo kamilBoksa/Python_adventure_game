@@ -13,6 +13,7 @@ import export_score
 
 
 def getch():
+    """Reads key in terminal without pressing Enter button"""
 
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
@@ -25,6 +26,7 @@ def getch():
 
 
 def import_map(filename, imported_list):
+    """Imports game board from file and colours specific characters"""
 
     with open(filename) as board:
         for element in board:
@@ -32,27 +34,28 @@ def import_map(filename, imported_list):
             element = list(element)
             imported_list.append(element)
 
-        for i in range(len(imported_list)):
-            for x in range(len(imported_list[i])):
-                if imported_list[i][x] == "#":
-                    imported_list[i][x] = imported_list[i][x].replace("#", "\033[95m#\33[0m")
-                elif imported_list[i][x] == "$":
-                    imported_list[i][x] = imported_list[i][x].replace("$", "\033[93m$\33[0m")
-                elif imported_list[i][x] == "^":
-                    imported_list[i][x] = imported_list[i][x].replace("^", "\033[32m^\033[0m")
-                elif imported_list[i][x] == "=":
-                    imported_list[i][x] = imported_list[i][x].replace("=", "\033[34m=\033[0m")
-                elif imported_list[i][x] == "B":
-                    imported_list[i][x] = imported_list[i][x].replace("B", "\033[96mB\033[0m")
-                elif imported_list[i][x] == "|":
-                    imported_list[i][x] = imported_list[i][x].replace("|", "\033[31m|\033[0m")
-                elif imported_list[i][x] == "_":
-                    imported_list[i][x] = imported_list[i][x].replace("_", "\033[31m_\033[0m")
+        for row in range(len(imported_list)):
+            for column in range(len(imported_list[row])):
+                if imported_list[row][column] == "#":
+                    imported_list[row][column] = imported_list[row][column].replace("#", "\033[95m#\33[0m")
+                elif imported_list[row][column] == "$":
+                    imported_list[row][column] = imported_list[row][column].replace("$", "\033[93m$\33[0m")
+                elif imported_list[row][column] == "^":
+                    imported_list[row][column] = imported_list[row][column].replace("^", "\033[32m^\033[0m")
+                elif imported_list[row][column] == "=":
+                    imported_list[row][column] = imported_list[row][column].replace("=", "\033[34m=\033[0m")
+                elif imported_list[row][column] == "B":
+                    imported_list[row][column] = imported_list[row][column].replace("B", "\033[96mB\033[0m")
+                elif imported_list[row][column] == "|":
+                    imported_list[row][column] = imported_list[row][column].replace("|", "\033[31m|\033[0m")
+                elif imported_list[row][column] == "_":
+                    imported_list[row][column] = imported_list[row][column].replace("_", "\033[31m_\033[0m")
 
     return imported_list
 
 
 def print_map(imported_list):
+    """Displays game board"""
 
     os.system('clear')
     display_key_tips()
@@ -60,36 +63,39 @@ def print_map(imported_list):
         print(''.join(element))
 
 
-def show_title(filename):
+def show_game_title():
+    """Displays game title"""
 
     title = []
 
-    file = open(filename)
+    file_name = open('game_title.txt')
 
-    for line in file:
+    for line in file_name:
         line = line.strip('\n')
         title.append(line)
 
     for line in title:
         print(''.join(line))
 
-    file.close()
+    file_name.close()
 
 
 def story_printer():
+    """Displays game story"""
 
-    file = open("story.txt")
-    lines = file.readlines()
-    for c in lines:
-        print(c, end='')
+    file_name = open("story.txt")
+    lines = file_name.readlines()
+    for char in lines:
+        print(char, end='')
         sys.stdout.flush()
         time.sleep(0.2)
     print('')
 
-    file.close()
+    file_name.close()
 
 
 def insert_player_to_game_board(player, imported_list):
+    """Sets player to the starting position on the map"""
 
     position_x = 1
     position_y = 1
@@ -98,6 +104,7 @@ def insert_player_to_game_board(player, imported_list):
 
 
 def check_collision(imported_list, next_x, next_y):
+    """Informs about the symbols after which player can move"""
 
     interactive_symbols = ["\033[31m|\033[0m", "\033[93m$\33[0m", ".", "A", "S", "\033[96mB\033[0m", "M", ">"]
     if imported_list[next_y][next_x] in interactive_symbols:
@@ -114,6 +121,13 @@ def begin_fight(is_fight):
 
 
 def fight_mechanic(player_stats):
+    """Carries out the mechanics of fighting with the enemy
+    Indexes description:
+    1 == hero_strength
+    2 == hero_lifes
+    3 == hero_intelligence
+    4 == hero_agility
+    5 == hero_profession"""
 
     hero_lifes = player_stats[2]
     if player_stats[5] == "Mage":
@@ -128,8 +142,8 @@ def fight_mechanic(player_stats):
     print("Bandit: Come and face your destiny poor hero!")
 
     while True:
-        decision = input("Press A to attack enemy! ")
-        if decision == "A" or decision == "a":
+        perform_attack = input("Press A to attack enemy! ")
+        if perform_attack == "A" or perform_attack == "a":
             hero_roll = random.randint(0, 10) + bonus_attack
             enemy_roll = random.randint(0, 15)
             print("Your attack power: %s" % hero_roll)
@@ -156,11 +170,14 @@ def fight_mechanic(player_stats):
                     time.sleep(2)
                     loose.main()
                     play_again()
-            else:
-                continue
 
 
 def player_actions(player, imported_list, next_y, next_x, player_stats, inventory):
+    """Carries out the mechanics of player moving, collecting items and displaying inventory and  hero statistics
+    Indexes description:
+    1 == hero_strength
+    3 == hero_intelligence
+    4 == hero_agility"""
 
     position_y = 1
     position_x = 1
@@ -186,16 +203,16 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
         if check_collision(imported_list, next_x, next_y) is True:
             if imported_list[next_y][next_x] == ">":
                 break
-            elif imported_list[next_y][next_x] == "\033[93m$\33[0m" :
-                hero_inventory.add_to_inventory(inventory,'Gold coin', 1, 1, 'Collectable')
+            elif imported_list[next_y][next_x] == "\033[93m$\33[0m":
+                hero_inventory.add_to_inventory(inventory, 'Gold coin', 1, 1, 'Collectable')
             elif imported_list[next_y][next_x] == "A":
                 hero_inventory.add_to_inventory(inventory, 'Axe', 1, 12, 'Weapon')
                 player_stats[1] += 3
             elif imported_list[next_y][next_x] == "S":
-                hero_inventory.add_to_inventory(inventory,'Staff', 1, 5, 'Weapon')
+                hero_inventory.add_to_inventory(inventory, 'Staff', 1, 5, 'Weapon')
                 player_stats[3] += 3
             elif imported_list[next_y][next_x] == "\033[96mB\033[0m":
-                hero_inventory.add_to_inventory(inventory,'Bow', 1, 7, 'Weapon')
+                hero_inventory.add_to_inventory(inventory, 'Bow', 1, 7, 'Weapon')
                 player_stats[4] += 3
             elif imported_list[next_y][next_x] == "M":
                 begin_fight(True)
@@ -224,37 +241,41 @@ def display_key_tips():
     print(" ")
 
 
-def how_to_play():
+def display_how_to_play():
 
-    file = open("how_to_play.txt")
-    how_to_play = file.read()
+    file_name = open("how_to_play.txt")
+    how_to_play = file_name.read()
     print(how_to_play)
-    file.close()
+    file_name.close()
 
 
 def play_again():
+    """Allows user to repeat the game"""
 
     again = input("Do you want to play again? y or n: ")
+    again = again.lower()
     if again == "y":
         os.system("clear")
         game_core()
     elif again == "n":
         print("Goodbye")
-        file = open("credits.txt")
-        credits = file.read()
+        file_name = open("credits.txt")
+        credits = file_name.read()
         print(credits)
-        file.close
+        file_name.close()
         quit()
     else:
         "Enter correct answer!"
         play_again()
 
+
 def game_core():
+    """Conducts the main gameplay process"""
 
     imported_map_1 = []
     imported_map_2 = []
     player = '@'
-    show_title('game_title.txt')
+    show_game_title()
     import_map('game_board.txt', imported_map_1)
     import_map('game_board2.txt', imported_map_2)
     next_y = 1
@@ -262,15 +283,16 @@ def game_core():
     inventory = []
 
     story_printer()
-    how_to_play()
+    display_how_to_play()
     player_stats = hero_creator.create_hero()
     start_time = time.time()
-
+    # Gameplay on the first map
     insert_player_to_game_board(player, imported_map_1)
     player_actions(player, imported_map_1, next_y, next_x, player_stats, inventory)
-
+    # Gameplay on the second map
     insert_player_to_game_board(player, imported_map_2)
     player_actions(player, imported_map_2, next_y, next_x, player_stats, inventory)
+    # End game
     stop_time = time.time()
     game_time = stop_time - start_time
     export_score.export_statistics('hallOfFame.txt', player_stats, inventory, game_time)
@@ -280,6 +302,7 @@ def main():
 
     game_core()
     play_again()
+
 
 if __name__ == '__main__':
     main()
