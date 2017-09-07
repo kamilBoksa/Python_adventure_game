@@ -1,5 +1,5 @@
 import os
-from time import sleep
+import time
 import sys
 import tty
 import termios
@@ -7,6 +7,7 @@ import hero_creator
 import hero_inventory
 import hot_warm_cold
 import random
+import export_score
 
 
 def getch():
@@ -18,6 +19,17 @@ def getch():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
+
+
+def start_timer(game_time):
+    game_time == time.time()
+    return game_time
+
+
+def stop_timer(start_time):
+    start_time = start_timer(start_time)
+    end_time = start_time - time.time()
+    return end_time
 
 
 def import_map(filename, imported_list):
@@ -72,7 +84,7 @@ def story_printer():
     for c in lines:
         print(c, end='')
         sys.stdout.flush()
-        sleep(0.2)
+        time.sleep(0.2)
     print('')
 
 
@@ -94,7 +106,7 @@ def check_collision(imported_list, next_x, next_y):
 def begin_fight(is_fight):
     if is_fight is True:
         print("You are facing an enemy! Only one of you will survive!")
-        sleep(2)
+        time.sleep(2)
 
 
 def fight_mechanic(imported_list):
@@ -116,7 +128,7 @@ def fight_mechanic(imported_list):
                 print("")
                 if enemy_lifes == 0:
                     print("You killed the enemy!")
-                    sleep(1)
+                    time.sleep(1)
                     break
             elif hero_roll == enemy_roll:
                 print("Duce! Enemy parried your attack!")
@@ -128,7 +140,7 @@ def fight_mechanic(imported_list):
                 print("")
                 if hero_lifes == 0:
                     print("You died!!")
-                    sleep(2)
+                    time.sleep(2)
                     #game over screen
                     quit()
             else:
@@ -182,7 +194,7 @@ def player_actions(player, imported_list, next_y, next_x, player_stats, inventor
             position_y = next_y
             position_x = next_x
             print_map(imported_list)
-            sleep(0.1)
+            time.sleep(0.1)
         elif check_collision(imported_list, next_x, next_y) is False and control in "wasd":
             print("You cant move there!")
             next_x = position_x
@@ -229,6 +241,7 @@ def how_to_play():
 
 
 def game_core():
+    game_time = 0
     imported_map_1 = []
     imported_map_2 = []
     player = '@'
@@ -242,14 +255,15 @@ def game_core():
     story_printer()
     how_to_play()
     player_stats = hero_creator.create_hero()
+    start_timer(game_time)
 
     insert_player_to_game_board(player, imported_map_1)
     player_actions(player, imported_map_1, next_y, next_x, player_stats, inventory)
-    print_map(imported_map_1)
 
     insert_player_to_game_board(player, imported_map_2)
     player_actions(player, imported_map_2, next_y, next_x, player_stats, inventory)
-    print_map(imported_map_2)
+    stop_timer(game_time)
+    export_score.export_statistics('hallOfFame.txt', inventory, game_time)
 
 
 def main():
